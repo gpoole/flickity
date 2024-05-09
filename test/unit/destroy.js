@@ -2,12 +2,18 @@ QUnit.test( 'destroy', function( assert ) {
 
   let elem = document.querySelector('#destroy');
   let flkty = new Flickity( elem );
+  let destroyFired = false;
+
+  flkty.on( 'destroy', () => {
+    destroyFired = true;
+  } );
 
   let done = assert.async();
   // do it async
   setTimeout( function() {
     flkty.destroy();
     assert.strictEqual( elem.flickityGUID, undefined, 'flickityGUID removed' );
+    assert.ok( destroyFired, 'destroy event fired' );
     assert.ok( !flkty.isActive, 'not active' );
     assert.ok( !Flickity.data( elem ), '.data() returns falsey' );
     assert.ok( elem.children[0], '.cell', 'cell is back as first child' );
