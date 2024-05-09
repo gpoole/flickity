@@ -837,8 +837,8 @@ proto.deactivate = function() {
 proto.destroy = function() {
   this.deactivate();
   window.removeEventListener( 'resize', this );
-  this.allOff();
   this.emitEvent('destroy');
+  this.allOff();
   if ( jQuery && this.$element ) {
     jQuery.removeData( this.element, 'flickity' );
   }
